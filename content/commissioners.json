@@ -41,7 +41,7 @@
 		"phone": "(706) 371-0204",
 		"phone_raw": "17063710204",
 		"email": "jeffdbrown21@gmail.com",
-		"photo": ".assets/commissioners/commissioner_4.png",
+		"photo": "./assets/commissioners/commissioner_4.png",
 		"bio": ""
 	},
 	{
@@ -52,7 +52,7 @@
 		"phone": "(706) 376-4224",
 		"phone_raw": "17063764224",
 		"email": "joeydorsey@yahoo.com",
-		"photo": ".assets/commissioners/commissioner_5.png",
+		"photo": "./assets/commissioners/commissioner_5.png",
 		"bio": ""
 	}
   ]
