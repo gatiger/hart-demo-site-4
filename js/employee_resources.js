@@ -99,7 +99,17 @@ async function initWorkCalendar(){
     if(!res.ok) throw new Error(`Failed to load /content/county_holidays.json (${res.status})`);
 
     const data = await res.json();
-    workCalendarEvents = Array.isArray(data.events) ? data.events : [];
+    const holidayEvents = Array.isArray(data.events) ? data.events : [];
+
+const today = new Date();
+
+const paydayEvents = generatePaydays(
+  data.paydays,
+  today.getFullYear() - 1,
+  today.getFullYear() + 2
+);
+
+workCalendarEvents = [...holidayEvents, ...paydayEvents];
 
     const prevBtn = document.getElementById("calPrevBtn");
     const nextBtn = document.getElementById("calNextBtn");
@@ -280,4 +290,33 @@ function escapeHtml(value){
 
 function escapeAttr(value){
   return String(value ?? "").replace(/[^a-zA-Z0-9_-]/g, "");
+}
+
+/* =========================
+   PAYDAY GENERATOR (ADD HERE)
+========================= */
+
+function generatePaydays(rule, startYear, endYear){
+  const items = [];
+  if(!rule?.start || !rule?.intervalDays) return items;
+
+  let current = new Date(`${rule.start}T00:00:00`);
+  const rangeStart = new Date(startYear, 0, 1);
+  const rangeEnd = new Date(endYear, 11, 31);
+
+  while(current < rangeStart){
+    current.setDate(current.getDate() + rule.intervalDays);
+  }
+
+  while(current <= rangeEnd){
+    items.push({
+      date: toISODate(current),
+      type: "payday",
+      label: rule.label || "Payday"
+    });
+
+    current.setDate(current.getDate() + rule.intervalDays);
+  }
+
+  return items;
 }
