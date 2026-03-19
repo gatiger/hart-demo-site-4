@@ -1175,30 +1175,19 @@ select:focus-visible{
   justify-content:center;
   align-items:center;
   padding:12px 0;
-}
-
-.sealBar img{
-  height:300px;
-  width:auto;
+  position: relative;
+  z-index: 200;
 }
 
 .sealLink{
   display:inline-block;
+  position: relative;
+  z-index: 201;
 }
 
 .sealLink img{
-  height:60px;
+  display:block;
+  height:300px;
   width:auto;
   transition: transform .15s ease, opacity .15s ease;
-}
-
-.sealLink:hover img{
-  transform: scale(1.05);
-  opacity: 0.9;
-}
-
-.sealLink:focus-visible{
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
-  border-radius: 6px;
 }
