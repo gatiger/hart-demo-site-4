@@ -1216,7 +1216,7 @@ select:focus-visible{
   padding:10px 16px;
   border-radius:999px;
   border:1px solid var(--border);
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,40,0,1);
   color: var(--text);
   text-decoration:none;
   font-weight:500;
@@ -1225,7 +1225,7 @@ select:focus-visible{
 }
 
 .portalBtn:hover{
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,40,0,0.12);
   transform: translateY(-1px);
 }
 
