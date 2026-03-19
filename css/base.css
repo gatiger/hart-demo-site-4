@@ -1169,3 +1169,15 @@ select:focus-visible{
   font-size:14px;
   color:var(--muted);
 }
+
+.sealBar{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:12px 0;
+}
+
+.sealBar img{
+  height:60px;
+  width:auto;
+}
