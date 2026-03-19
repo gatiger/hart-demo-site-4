@@ -1,15 +1,16 @@
 {
+  {
+      "start": "2026-01-08",
+      "intervalDays": 14,
+      "label": "Payday"
+    },
+
   "title": "Work Calendar",
   "events": [
     {
       "date": "2026-01-01",
       "type": "holiday",
       "label": "New Year's Day"
-    },
-    {
-      "date": "2026-01-09",
-      "type": "payday",
-      "label": "Payday"
     },
     {
       "date": "2026-01-19",
