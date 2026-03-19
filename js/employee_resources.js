@@ -228,7 +228,17 @@ function renderUpcomingDates(){
 }
 
 function getEventsForDate(isoDate){
-  return workCalendarEvents.filter(evt => evt.date === isoDate);
+  return workCalendarEvents.filter(evt => {
+    if(evt.date){
+      return evt.date === isoDate;
+    }
+
+    if(evt.start && evt.end){
+      return isoDate >= evt.start && isoDate <= evt.end;
+    }
+
+    return false;
+  });
 }
 
 function toISODate(date){
