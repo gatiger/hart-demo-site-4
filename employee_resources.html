@@ -44,6 +44,48 @@
     <!-- Alerts -->
     <div id="alertHolder"></div>
 
+    <section class="card">
+  <h2 class="cardTitle">Work Calendar</h2>
+
+  <div class="workCalLegend" aria-label="Calendar legend">
+    <span class="legendItem">
+      <span class="legendDot legendDot--holiday" aria-hidden="true"></span>
+      Holiday
+    </span>
+    <span class="legendItem">
+      <span class="legendDot legendDot--payday" aria-hidden="true"></span>
+      Payday
+    </span>
+  </div>
+
+  <div class="workCalShell">
+    <div class="workCalPanel">
+      <div class="workCalHead">
+        <button type="button" class="workCalNavBtn" id="calPrevBtn" aria-label="Previous month">‹</button>
+        <h3 class="workCalMonth" id="workCalMonthLabel">Month Year</h3>
+        <button type="button" class="workCalNavBtn" id="calNextBtn" aria-label="Next month">›</button>
+      </div>
+
+      <div class="workCalWeekdays" aria-hidden="true">
+        <div>Sun</div>
+        <div>Mon</div>
+        <div>Tue</div>
+        <div>Wed</div>
+        <div>Thu</div>
+        <div>Fri</div>
+        <div>Sat</div>
+      </div>
+
+      <div id="workCalendarGrid" class="workCalGrid" aria-label="Work calendar month view"></div>
+    </div>
+
+    <aside class="workCalAside">
+      <h3 class="workCalAsideTitle">Upcoming Dates</h3>
+      <div id="upcomingDates" class="upcomingDates"></div>
+    </aside>
+  </div>
+</section>
+
     <!-- Page Header -->
     <div class="pageHead">
       <h1 class="pageTitle" data-content="title"></h1>
