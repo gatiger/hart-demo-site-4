@@ -1217,7 +1217,7 @@ select:focus-visible{
   border-radius:999px;
   border:3px solid rgba(0,0,0,1);
   background: rgba(255,40,0,1);
-  color: solid rbga(255,255,255,1);
+  color: #ffffff;
   text-decoration:none;
   font-weight:500;
   font-size:14px;
