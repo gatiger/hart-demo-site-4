@@ -11,7 +11,7 @@
       "dismissible": false,
       "start": "2026-02-20T08:00:00-05:00",
       "end": "2026-03-26T23:59:00-05:00",
-      "audience": "all"
+      "audience": "public"
     },
 
     {
