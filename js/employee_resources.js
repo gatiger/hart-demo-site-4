@@ -95,8 +95,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function initWorkCalendar(){
   try{
-    const res = await fetch("/content/employee_calendar.json", { cache: "no-store" });
-    if(!res.ok) throw new Error(`Failed to load /content/employee_calendar.json (${res.status})`);
+    const res = await fetch("/content/county_holidays.json", { cache: "no-store" });
+    if(!res.ok) throw new Error(`Failed to load /content/county_holidays.json (${res.status})`);
 
     const data = await res.json();
     workCalendarEvents = Array.isArray(data.events) ? data.events : [];
