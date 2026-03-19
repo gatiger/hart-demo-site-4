@@ -43,6 +43,21 @@
       "end": "2026-11-27",
       "type": "holiday",
       "label": "Thanksgiving"
+    },
+    {
+      "date": "2026-12-23",
+      "type": "holiday",
+      "label": "Christmas Eve Eve (4 hours)"
+    },
+    {
+      "date": "2026-12-24",
+      "type": "holiday",
+      "label": "Christmas Eve"
+    },
+    {
+      "date": "2026-12-25",
+      "type": "holiday",
+      "label": "Christmas Day"
     }
   ]
 }
