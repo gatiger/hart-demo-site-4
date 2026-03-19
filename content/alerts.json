@@ -10,20 +10,19 @@
       "link": { "label": "View Updates", "href": "/alerts/weather-closure.html" },
       "dismissible": false,
       "start": "2026-02-20T08:00:00-05:00",
-      "end": "2026-02-26T23:59:00-05:00"
+      "end": "2026-03-26T23:59:00-05:00",
+      "audience": "all"
     },
+
     {
-      "id": "2026-tax-deadline",
+      "id": "employee-benefits",
       "active": true,
-      "level": "important",
-      "template": "compact",
-      "title": "Tax Reminder",
-      "message": "Property tax payments are due March 31.",
-      "link": { "label": "Pay / Details", "href": "/tax-commissioner.html" },
-      "dismissible": false,
-      "end": "2026-03-31T23:59:00-05:00"
+      "level": "info",
+      "template": "banner",
+      "title": "Employee Benefits Update",
+      "message": "Open enrollment ends Friday at 5 PM.",
+      "dismissible": true,
+      "audience": "employee-portal"
     }
   ]
-
 }
-
