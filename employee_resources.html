@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Employee Portal | Hart County</title>
+
+  <!-- Prevent indexing -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/alerts.css" />
+  <link rel="stylesheet" href="/css/employee_resources.css" />
+
+  <script defer src="js/alerts.js"></script>
+  <script defer src="js/lang.js"></script>
+  <script defer src="js/app.js"></script>
+  <script defer src="js/content-loader.js"></script>
+  <script defer src="js/employee_resources.js"></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Use your existing header/nav exactly as other pages -->
+
+  <main id="main" class="container" tabindex="-1">
+
+    <!-- Alerts -->
+    <div id="alertHolder"></div>
+
+    <!-- Page Header -->
+    <div class="pageHead">
+      <h1 class="pageTitle" data-content="title"></h1>
+      <p class="pageSub" data-content="subtitle"></p>
+    </div>
+
+    <!-- Quick Links -->
+    <section class="card">
+      <h2 class="cardTitle" data-content="quickLinks.title"></h2>
+      <div id="quickLinksGrid" class="quickLinksGrid"></div>
+    </section>
+
+    <!-- Employee Directory -->
+    <section class="card">
+      <h2 class="cardTitle" data-content="directory.title"></h2>
+
+      <input
+        type="text"
+        id="directorySearch"
+        class="field"
+        placeholder="Search employees..."
+      />
+
+      <div id="directoryList" class="directoryList"></div>
+    </section>
+
+    <!-- Forms & Documents -->
+    <section class="card">
+      <h2 class="cardTitle" data-content="forms.title"></h2>
+      <div id="formsList" class="formsList"></div>
+    </section>
+
+    <!-- Contacts -->
+    <section class="card">
+      <h2 class="cardTitle" data-content="contacts.title"></h2>
+      <div id="contactsList" class="contactsList"></div>
+    </section>
+
+  </main>
+</body>
+</html>
