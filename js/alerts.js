@@ -106,6 +106,22 @@ function pickAlerts(alerts, limit = 5){
   return active.slice(0, Math.max(1, limit));
 }
 
+function getCurrentAlertAudience(){
+  const path = window.location.pathname.toLowerCase();
+
+  if (path.includes("employee_resources")) return "employee-portal";
+  return "public";
+}
+
+function filterAlertsByAudience(items){
+  const current = getCurrentAlertAudience();
+
+  return (items || []).filter(alert => {
+    const audience = alert.audience || "public";
+    return audience === "all" || audience === current;
+  });
+}
+
 function renderAlertsInto(mount, alerts){
   if(!mount) return;
 
@@ -218,8 +234,9 @@ function renderAlertsInto(mount, alerts){
  */
 function renderAlert(data){
   const mount = ensureAlertMount();
-  const list = pickAlerts(data?.alerts, 5); // show up to 5
-  renderAlertsInto(mount, list);
+  const list = pickAlerts(data?.alerts, 5);
+const filtered = filterAlertsByAudience(list);
+renderAlertsInto(mount, filtered);
 }
 
 // If your site already calls renderAlert(...) globally:
