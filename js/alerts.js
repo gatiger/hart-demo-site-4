@@ -113,12 +113,44 @@ function getCurrentAlertAudience(){
   return "public";
 }
 
+function isJobVisibleForPage(alert, now = new Date()){
+  const path = window.location.pathname.toLowerCase();
+  const isEmployeePortal = path.includes("employee_resources");
+
+  const employeeStart = safeDate(alert.employeeStart);
+  const employeeEnd = safeDate(alert.employeeEnd);
+  const publicStart = safeDate(alert.publicStart);
+  const publicEnd = safeDate(alert.publicEnd);
+
+  const inEmployeeWindow =
+    (!employeeStart || now >= employeeStart) &&
+    (!employeeEnd || now <= employeeEnd);
+
+  const inPublicWindow =
+    (!publicStart || now >= publicStart) &&
+    (!publicEnd || now <= publicEnd);
+
+  if (isEmployeePortal && inEmployeeWindow) return true;
+  if (inPublicWindow) return true;
+
+  return false;
+}
+
 function filterAlertsByAudience(items){
-  const current = getCurrentAlertAudience();
+  const now = new Date();
+  const currentAudience = getCurrentAlertAudience();
 
   return (items || []).filter(alert => {
+    if (!alert || alert.active !== true) return false;
+
+    // 👇 NEW: job logic
+    if (alert.kind === "job") {
+      return isJobVisibleForPage(alert, now);
+    }
+
+    // existing logic for normal alerts
     const audience = alert.audience || "public";
-    return audience === "all" || audience === current;
+    return audience === "all" || audience === currentAudience;
   });
 }
 
@@ -160,7 +192,9 @@ function renderAlertsInto(mount, alerts){
         const detailsId = `hc_alert_details_${safeId}`;
 
         return `
-          <div class="hc-alert hc-alert--${escapeText(level)} hc-alert--${escapeText(template)}" ${liveAttrs} data-alert-id="${escapeText(id)}">
+          const kind = String(a.kind || "").toLowerCase();
+
+          <div class="hc-alert hc-alert--${escapeText(level)} hc-alert--${escapeText(template)} ${kind === "job" ? "hc-alert--job" : ""}"
             <div class="hc-alert__main">
               <div class="hc-alert__title">${title}</div>
 
