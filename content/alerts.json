@@ -21,7 +21,7 @@
       "template": "banner",
       "title": "Employee Benefits Update",
       "message": "Open enrollment ends Friday at 5 PM.",
-      "dismissible": true,
+      "dismissible": false,
       "audience": "employee-portal"
     }
   ]
