@@ -168,60 +168,55 @@ function renderAlertsInto(mount, alerts){
   mount.innerHTML = `
     <div class="hc-alertstack">
       ${alerts.map((a, idx) => {
-        const level = String(a.level || "info").toLowerCase().trim();
-        const template = String(a.template || "compact").toLowerCase().trim();
-        const isCritical = level === "critical";
+  const level = String(a.level || "info").toLowerCase().trim();
+  const template = String(a.template || "compact").toLowerCase().trim();
+  const isCritical = level === "critical";
+  const kind = String(a.kind || "").toLowerCase().trim();
 
-        const id = String(a.id || `alert-${idx}`);
-        const title = escapeText(a.title || "");
-        const message = escapeText(a.message || "");
+  const id = String(a.id || `alert-${idx}`);
+  const title = escapeText(a.title || "");
+  const message = escapeText(a.message || "");
 
-        const link = (a.link && typeof a.link === "object") ? a.link : null;
-        const linkLabel = link?.label ? escapeText(link.label) : "Learn more";
-        const linkHref = link?.href ? String(link.href) : "";
+  const link = (a.link && typeof a.link === "object") ? a.link : null;
+  const linkLabel = link?.label ? escapeText(link.label) : "Learn more";
+  const linkHref = link?.href ? String(link.href) : "";
 
-        const dismissible = a.dismissible === true;
+  const dismissible = a.dismissible === true;
 
-        // aria-live assertive only for critical
-        const liveAttrs = isCritical
-          ? `role="alert" aria-live="assertive"`
-          : `aria-live="polite"`;
+  const liveAttrs = isCritical
+    ? `role="alert" aria-live="assertive"`
+    : `aria-live="polite"`;
 
-        // Stable DOM ids for aria-controls
-        const safeId = id.replace(/[^a-zA-Z0-9_-]/g, "_");
-        const detailsId = `hc_alert_details_${safeId}`;
+  const safeId = id.replace(/[^a-zA-Z0-9_-]/g, "_");
+  const detailsId = `hc_alert_details_${safeId}`;
 
-        return `
-          const kind = String(a.kind || "").toLowerCase();
+  return `
+    <div class="hc-alert hc-alert--${escapeText(level)} hc-alert--${escapeText(template)} ${kind === "job" ? "hc-alert--job" : ""}" ${liveAttrs} data-alert-id="${escapeText(id)}">
+      <div class="hc-alert__main">
+        <div class="hc-alert__title">${title}</div>
 
-          <div class="hc-alert hc-alert--${escapeText(level)} hc-alert--${escapeText(template)} ${kind === "job" ? "hc-alert--job" : ""}"
-            <div class="hc-alert__main">
-              <div class="hc-alert__title">${title}</div>
+        <div class="hc-alert__preview"></div>
 
-              <!-- 1-line preview, ellipsis handled by CSS -->
-              <div class="hc-alert__preview"></div>
+        <div class="hc-alert__details" id="${detailsId}" hidden>
+          <div class="hc-alert__full">${message}</div>
+          ${linkHref ? `<a class="hc-alert__link hc-alert__link--inline" href="${escapeText(linkHref)}">${linkLabel}</a>` : ""}
+        </div>
+      </div>
 
-              <!-- Full message (collapsed by default) -->
-              <div class="hc-alert__details" id="${detailsId}" hidden>
-                <div class="hc-alert__full">${message}</div>
-                ${linkHref ? `<a class="hc-alert__link hc-alert__link--inline" href="${escapeText(linkHref)}">${linkLabel}</a>` : ""}
-              </div>
-            </div>
+      <div class="hc-alert__actions">
+        <button class="hc-alert__toggle" type="button"
+          aria-expanded="false"
+          aria-controls="${detailsId}">
+          View
+        </button>
 
-            <div class="hc-alert__actions">
-              <button class="hc-alert__toggle" type="button"
-                aria-expanded="false"
-                aria-controls="${detailsId}">
-                View
-              </button>
-
-              ${dismissible ? `
-                <button class="hc-alert__dismiss" type="button" aria-label="Dismiss notice" data-dismiss="1">✕</button>
-              ` : ""}
-            </div>
-          </div>
-        `;
-      }).join("")}
+        ${dismissible ? `
+          <button class="hc-alert__dismiss" type="button" aria-label="Dismiss notice" data-dismiss="1">✕</button>
+        ` : ""}
+      </div>
+    </div>
+  `;
+}).join("")}
     </div>
   `;
 
