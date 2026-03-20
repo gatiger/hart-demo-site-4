@@ -28,7 +28,7 @@
       "id": "job-posting-roads-operator",
       "active": true,
       "kind": "job",
-      "level": "info",
+      "level": "success",
       "template": "banner",
       "title": "Now Hiring: Roads Equipment Operator",
       "message": "Hart County is accepting applications for Roads Equipment Operator. Apply through Human Resources.",
