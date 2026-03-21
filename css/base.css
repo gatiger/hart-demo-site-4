@@ -1215,9 +1215,9 @@ select:focus-visible{
   display:inline-block;
   padding:10px 16px;
   border-radius:999px;
-  border:3px solid rgba(0,0,0,1);
+  border:3px solid var(--border);
   background: rgba(255,40,0,1);
-  color: #ffffff;
+  color: var(--text);
   text-decoration:none;
   font-weight:500;
   font-size:14px;
@@ -1481,4 +1481,36 @@ html{
 
 .hc-alert--job{
   border-left: 4px solid #22c55e;
+}
+
+#internalJobsNotice{
+  margin-bottom: 16px;
+}
+
+#internalJobsList{
+  display:grid;
+  gap:12px;
+}
+
+.jobCard{
+  border:1px solid var(--border);
+  border-radius:16px;
+  background: rgba(255,255,255,.03);
+  padding:16px;
+}
+
+.jobTitle{
+  margin:0 0 6px;
+  font-size:18px;
+  font-weight:700;
+}
+
+.jobMeta{
+  margin:0 0 10px;
+  color: var(--muted);
+  font-size:14px;
+}
+
+.jobSummary{
+  margin:0 0 12px;
 }
