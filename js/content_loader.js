@@ -1,3 +1,5 @@
+console.log("content-loader.js loaded");
+
 function safeText(value){
   return value === undefined || value === null ? "" : String(value);
 }
