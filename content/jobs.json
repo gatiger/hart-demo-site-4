@@ -1,0 +1,17 @@
+{
+  "jobs": [
+    {
+      "id": "roads-operator",
+      "active": true,
+      "title": "Roads Equipment Operator",
+      "department": "Road Department",
+      "location": "Hart County, GA",
+      "summary": "Hart County is accepting applications for Roads Equipment Operator.",
+      "href": "/jobs/roads-operator.html",
+      "employeeStart": "2026-03-19T00:00:00-04:00",
+      "employeeEnd": "2026-03-26T23:59:59-04:00",
+      "publicStart": "2026-03-27T00:00:00-04:00",
+      "publicEnd": "2026-04-15T23:59:59-04:00"
+    }
+  ]
+}
