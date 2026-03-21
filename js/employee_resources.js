@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   initDirectorySearch();
+  initInternalJobs();
 });
 
 function renderQuickLinks(items){
@@ -83,6 +84,98 @@ function renderContacts(items){
       ${c.phone ? `<div>${c.phone}</div>` : ""}
       ${c.email ? `<div>${c.email}</div>` : ""}
     </div>
+  `).join("");
+}
+
+async function initInternalJobs(){
+  try{
+    const res = await fetch("/content/jobs.json", { cache: "no-store" });
+    if(!res.ok) throw new Error(`Failed to load /content/jobs.json (${res.status})`);
+
+    const data = await res.json();
+    const jobs = getEmployeePortalJobs(data.jobs || []);
+
+    renderInternalJobsNotice(jobs);
+    renderInternalJobs(jobs);
+  }catch(err){
+    console.error("Internal jobs load error:", err);
+
+    const notice = document.getElementById("internalJobsNotice");
+    const list = document.getElementById("internalJobsList");
+
+    if(notice){
+      notice.innerHTML = "";
+      notice.style.display = "none";
+    }
+
+    if(list){
+      list.innerHTML = `<p>Unable to load internal opportunities.</p>`;
+    }
+  }
+}
+
+function getEmployeePortalJobs(items){
+  const now = new Date();
+
+  return (items || []).filter(job =>
+    job.active === true &&
+    isInWindow(now, job.employeeStart, job.employeeEnd)
+  );
+}
+
+function renderInternalJobsNotice(items){
+  const mount = document.getElementById("internalJobsNotice");
+  if(!mount) return;
+
+  if(!items.length){
+    mount.innerHTML = "";
+    mount.style.display = "none";
+    return;
+  }
+
+  const count = items.length;
+  const firstTitle = items[0]?.title || "Internal Opportunity";
+
+  const title = count === 1
+    ? "New Internal Job Opportunity"
+    : "New Internal Job Opportunities";
+
+  const message = count === 1
+    ? `${firstTitle} is now available for internal applicants.`
+    : `${count} internal job postings are currently available.`;
+
+  mount.style.display = "";
+  mount.innerHTML = `
+    <div class="hc-alert hc-alert--info hc-alert--banner">
+      <div class="hc-alert__main">
+        <div class="hc-alert__title">${escapeHtml(title)}</div>
+        <div class="hc-alert__full">${escapeHtml(message)}</div>
+      </div>
+      <div class="hc-alert__actions">
+        <a class="hc-alert__link" href="#internalJobs">View Openings</a>
+      </div>
+    </div>
+  `;
+}
+
+function renderInternalJobs(items){
+  const mount = document.getElementById("internalJobsList");
+  if(!mount) return;
+
+  if(!items.length){
+    mount.innerHTML = `<p>No internal opportunities at this time.</p>`;
+    return;
+  }
+
+  mount.innerHTML = items.map(job => `
+    <article class="jobCard">
+      <h3 class="jobTitle">${escapeHtml(job.title || "")}</h3>
+      <p class="jobMeta">
+        ${escapeHtml(job.department || "")}${job.location ? ` • ${escapeHtml(job.location)}` : ""}
+      </p>
+      <p class="jobSummary">${escapeHtml(job.summary || "")}</p>
+      ${job.href ? `<a class="formItem" href="${job.href}">View Posting</a>` : ""}
+    </article>
   `).join("");
 }
 
@@ -219,7 +312,7 @@ function renderUpcomingDates(){
     .filter(evt => !Number.isNaN(evt.dateObj.getTime()))
     .filter(evt => evt.dateObj >= today)
     .sort((a, b) => a.dateObj - b.dateObj)
-    .slice(0, 5);
+    .slice(0, 8);
 
   if(!upcoming.length){
     mount.innerHTML = `<div class="upcomingItem"><div class="upcomingTitle">No upcoming dates.</div></div>`;
@@ -319,4 +412,17 @@ function generatePaydays(rule, startYear, endYear){
   }
 
   return items;
+}
+
+function isInWindow(now, startStr, endStr){
+  const start = startStr ? new Date(startStr) : null;
+  const end = endStr ? new Date(endStr) : null;
+
+  if(start && Number.isNaN(start.getTime())) return false;
+  if(end && Number.isNaN(end.getTime())) return false;
+
+  if(start && now < start) return false;
+  if(end && now > end) return false;
+
+  return true;
 }
