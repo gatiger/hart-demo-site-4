@@ -1,3 +1,5 @@
+console.log("employee_resources.js loaded");
+
 document.addEventListener("DOMContentLoaded", () => {
   initLocalizedPage("employee_resources", {
     onData: (data) => {
