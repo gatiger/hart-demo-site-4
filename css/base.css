@@ -704,9 +704,9 @@ main{ scroll-margin-top: 140px; }
   gap:10px;
   padding: 10px 12px;
   border-radius: 14px;
-  border: 1px solid rgba(31,78,140,.22);
+  border: 1px solid rgba(31,78,140,1);
   background: rgba(31,78,140,.06);
-  color: var(--accent);
+  color: #ffffff;
   cursor:pointer;
   user-select:none;
   font-weight: 800;
