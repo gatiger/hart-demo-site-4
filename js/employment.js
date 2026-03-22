@@ -56,7 +56,7 @@ function renderPublicJobs(items){
             <h3 class="jobListingTitle">${escapeHtml(job.title || "")}</h3>
             <div class="jobListingMeta">
               <span><strong>Posted:</strong> ${formatDisplayDate(job.postedDate)}</span>
-              <span><strong>Ends:</strong> ${formatDisplayDate(job.closingDate)}</span>
+              <span><strong>Ends:</strong> ${job.closingDate ? formatDisplayDate(job.closingDate) : "Open Until Filled"}
             </div>
           </div>
 
