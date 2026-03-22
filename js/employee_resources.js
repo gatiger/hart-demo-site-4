@@ -365,7 +365,7 @@ function renderUpcomingDates(){
     .filter(evt => !Number.isNaN(evt.dateObj.getTime()))
     .filter(evt => evt.dateObj >= today)
     .sort((a, b) => a.dateObj - b.dateObj)
-    .slice(0, 8);
+    .slice(0, 5);
 
   if(!upcoming.length){
     mount.innerHTML = `<div class="upcomingItem"><div class="upcomingTitle">No upcoming dates.</div></div>`;
