@@ -27,6 +27,17 @@
           "email": "rcarter@hartcountyga.gov"
         }
       ]
+    },
+    {
+      "name": "Tax Assessor",
+      "directory": [
+        {
+          "name": "Shane Hix (Cheif Appraisor)",
+          "phone": "376-3997",
+          "extension": "1001",
+          "email": "shix@hartcountyga.gov"
+        }
+      ]
     }
   ]
 }
