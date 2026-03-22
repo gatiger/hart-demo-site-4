@@ -91,11 +91,18 @@ function renderContacts(items){
 
 async function initInternalJobs(){
   try{
+    console.log("initInternalJobs running");
+
     const res = await fetch("/content/jobs.json", { cache: "no-store" });
+    console.log("jobs fetch status:", res.status, res.statusText);
+
     if(!res.ok) throw new Error(`Failed to load /content/jobs.json (${res.status})`);
 
     const data = await res.json();
+    console.log("jobs data:", data);
+
     const jobs = getEmployeePortalJobs(data.jobs || []);
+    console.log("filtered employee jobs:", jobs);
 
     renderInternalJobsNotice(jobs);
     renderInternalJobs(jobs);
@@ -169,16 +176,60 @@ function renderInternalJobs(items){
     return;
   }
 
-  mount.innerHTML = items.map(job => `
-    <article class="jobCard">
-      <h3 class="jobTitle">${escapeHtml(job.title || "")}</h3>
-      <p class="jobMeta">
-        ${escapeHtml(job.department || "")}${job.location ? ` • ${escapeHtml(job.location)}` : ""}
-      </p>
-      <p class="jobSummary">${escapeHtml(job.summary || "")}</p>
-      ${job.href ? `<a class="formItem" href="${job.href}">View Posting</a>` : ""}
-    </article>
-  `).join("");
+  mount.innerHTML = items.map((job, idx) => {
+    const id = escapeAttr(job.id || `internal-job-${idx}`);
+    const detailsId = `internalJobDetails_${id}`;
+
+    return `
+      <article class="jobListing">
+        <div class="jobListingHead">
+          <div class="jobListingMain">
+            <h3 class="jobListingTitle">${escapeHtml(job.title || "")}</h3>
+            <div class="jobListingMeta">
+              <span><strong>Posted:</strong> ${formatDisplayDate(job.postedDate)}</span>
+              <span><strong>Ends:</strong> ${formatDisplayDate(job.closingDate)}</span>
+            </div>
+          </div>
+
+          <div class="jobListingActions">
+            <button
+              type="button"
+              class="jobExpandBtn"
+              aria-expanded="false"
+              aria-controls="${detailsId}">
+              Expand
+            </button>
+          </div>
+        </div>
+
+        <div class="jobListingBody" id="${detailsId}" hidden>
+          ${job.summary ? `<p class="jobListingSummary">${escapeHtml(job.summary)}</p>` : ""}
+          ${job.details ? `<p class="jobListingDetails">${escapeHtml(job.details)}</p>` : ""}
+          ${job.applicationHref ? `<a class="jobAppLink" href="${job.applicationHref}" target="_blank" rel="noopener">Employment Application</a>` : ""}
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  bindInternalJobExpandButtons();
+}
+
+function bindInternalJobExpandButtons(){
+  document.querySelectorAll("#internalJobsList .jobExpandBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      const next = !expanded;
+      const detailsId = btn.getAttribute("aria-controls");
+      const panel = detailsId ? document.getElementById(detailsId) : null;
+
+      btn.setAttribute("aria-expanded", String(next));
+      btn.textContent = next ? "Collapse" : "Expand";
+
+      if(panel){
+        panel.hidden = !next;
+      }
+    });
+  });
 }
 
 let workCalendarEvents = [];
@@ -360,6 +411,20 @@ function formatLongDate(date){
     day: "numeric",
     year: "numeric"
   });
+}
+
+function formatDisplayDate(value){
+  const d = value ? new Date(value) : null;
+  if(!d || Number.isNaN(d.getTime())) return "";
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+  });
+}
+
+function escapeAttr(value){
+  return String(value ?? "").replace(/[^a-zA-Z0-9_-]/g, "");
 }
 
 function formatType(type){
