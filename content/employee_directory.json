@@ -1,0 +1,22 @@
+{
+  "directory": [
+    {
+      "name": "Jane Elizabeth Thompson",
+      "phone": "376-0000",
+      "extension": "1234",
+      "email": "jthompson@hartcountyga.gov"
+    },
+    {
+      "name": "Michael R. Anderson",
+      "phone": "376-0000",
+      "extension": "1256",
+      "email": "manderson@hartcountyga.gov"
+    },
+    {
+      "name": "Rebecca Lynn Carter",
+      "phone": "376-0000",
+      "extension": "1280",
+      "email": "rcarter@hartcountyga.gov"
+    }
+  ]
+}
